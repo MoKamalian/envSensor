@@ -12,14 +12,14 @@
 
 using namespace std;
 
-String sensorName = "sensor2,";
+String sensorName = "sensor1,";
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   while (!Serial);
 
-  Serial.println("LoRa Sender");
+  Serial.println("LoRa Sender"); 
 
   /* initialize the LoRa connection */
   if (!LoRa.begin(915E6)) {
@@ -74,7 +74,8 @@ void loop() {
   
   Serial.print("UV Index    = ");
   Serial.println(uvIndex);
-  Serial.print("Sending packet: ");
+  
+  Serial.print("Sending packet: "); Serial.println(sensorName);
 
   // send packet
   LoRa.beginPacket();
@@ -110,5 +111,5 @@ void loop() {
   LoRa.print(",");
 
   LoRa.endPacket();
-  delay(1000);
+  delay(4000);
 }
