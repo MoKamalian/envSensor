@@ -13,6 +13,7 @@
 using namespace std;
 
 String sensorName = "sensor1,";
+int delayTime = 4000;
 
 void setup() {
   // put your setup code here, to run once:
@@ -49,22 +50,25 @@ void loop() {
   float uvb = ENV.readUVB();
   float uvIndex = ENV.readUVIndex();  
 
-  // print each of the sensor values  
+  // print each of the sensor values 
+   
+  Serial.print("Sending packet: "); Serial.println(sensorName);
+  
   Serial.print("Temperature = ");
   Serial.print(temperature);
-  Serial.println(" °C");
+  Serial.println("°C");
 
   Serial.print("Humidity    = ");
   Serial.print(humidity);
-  Serial.println(" %");
+  Serial.println("%");
 
   Serial.print("Pressure    = ");
   Serial.print(pressure);
-  Serial.println(" kPa");
+  Serial.println("kPa");
 
   Serial.print("Illuminance = ");
   Serial.print(illuminance);
-  Serial.println(" lx");
+  Serial.println("lx");
 
   Serial.print("UVA         = ");
   Serial.println(uva);
@@ -75,7 +79,6 @@ void loop() {
   Serial.print("UV Index    = ");
   Serial.println(uvIndex);
   
-  Serial.print("Sending packet: "); Serial.println(sensorName);
 
   // send packet
   LoRa.beginPacket();
@@ -111,5 +114,5 @@ void loop() {
   LoRa.print(",");
 
   LoRa.endPacket();
-  delay(4000);
+  delay(delayTime);
 }
