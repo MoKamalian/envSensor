@@ -5,6 +5,10 @@ Description:  This is the program used to parse the incoming data from the maste
               via serial communication.  The data transmitted should follow a certain; data values should be
               separated with commas and the first value should indicate the sensors name.  The data values themselves
               will have a "key:value" format.
+
+              i.e.
+
+              key:value,key:value,key:value... and so on
 """
 
 
@@ -16,12 +20,13 @@ class ENVParser:
         self.data_value = data_value
         self.finalArray = {}
 
-    """
-    Parser method itself.  The method assumes that the data being 
-    received is already properly formatted.  
-    """
-
     def parse(self) -> dict:
+        """
+        This method should be called after object hs been instantiated.  Other methods depend on data
+        already parsed...
+        :return: Dictionary of the parsed data.  This should include the environmental data values if the
+        data transmitted was sent in the proper format.
+        """
         temp = self.data_value.split(",")
         if len(temp) < 1:
             print("[invalid data format:no comma splitter or data too short]")
@@ -41,6 +46,21 @@ class ENVParser:
         return self.finalArray
 
     def get(self, key: str, dictionary: dict):
+        """
+        Use this method to retrieve the data values using the environmental keys...
+        Use the following keys assuming data sent was formatted properly:
+            - sensorName
+            - temperature
+            - pressure
+            - illuminance
+            - humidity
+            - uva
+            - uvb
+            - uvIndex
+        :param key: environmental key from list above
+        :param dictionary: the finalArray the method will look through to find the value
+        :return: float data value
+        """
         if len(dictionary) == 0:
             print("[empty dictionary:values may not have been parsed yet]")
             return 0.0
@@ -58,6 +78,20 @@ class ENVParser:
             return 0.0
 
     def getList(self, keys: list):
+        """
+        Same method as above in terms of purpose but can accept multiple keys and return multiple
+        values in an array.
+            - sensorName
+            - temperature
+            - pressure
+            - illuminance
+            - humidity
+            - uva
+            - uvb
+            - uvIndex
+        :param keys: list of keys to search for use the valid keys from above
+        :return: array of values quarried for keys list... values are listed in order of key list
+        """
         val_lst = []
         if len(self.finalArray) == 0:
             print("[empty dictionary:values may not have been parsed yet]")

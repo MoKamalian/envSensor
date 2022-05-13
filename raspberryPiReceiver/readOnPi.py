@@ -8,7 +8,7 @@ parser1 = ENVParser(test)
 
 parser1.parse()
 
-temp = parser1.getList(["temperature", "pressure", "humidity"])
+temp = parser1.finalArray.get("temperature")
 print(temp)
 
 for key in parser1.finalArray:
