@@ -16,9 +16,16 @@ class ENVParser:
 
     sensor_name = "sensorName"
 
-    def __init__(self, data_value: str):
-        self.data_value = data_value
+    def __init__(self):
         self.finalArray = {}
+
+    def data(self, data_value: str):
+        """
+        Accepts the data value to later be parsed.  data_value follows format above.
+        :param data_value: the string value to be parsed
+        :return: nil
+        """
+        self.data_value = data_value
 
     def parse(self) -> dict:
         """
@@ -77,7 +84,7 @@ class ENVParser:
             print("[invalid key error:key not present or misspelled]")
             return 0.0
 
-    def getList(self, keys: list):
+    def getList(self, keys: list[str]) -> int | list[int]:
         """
         Same method as above in terms of purpose but can accept multiple keys and return multiple
         values in an array.
