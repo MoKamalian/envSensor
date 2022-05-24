@@ -83,6 +83,7 @@ void loop() {
   // send packet
   LoRa.beginPacket();
 
+  LoRa.print("sensorName:");
   LoRa.print(sensorName);
   
   LoRa.print("temperature:");
