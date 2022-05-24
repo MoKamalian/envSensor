@@ -18,8 +18,39 @@ The purpose of this project was to establish sensor nodes that would collect env
 	1. Arduino MKR WAN 1300 series -> https://store-usa.arduino.cc/products/arduino-mkr-wan-1300-lora-connectivity
 	2. Arduino MKR ENV Shield      -> https://www.arduino.cc/en/Guide/MKRENVShield
 
-Setup:
-1. gzdfgf
+Setup for environmental collection:
+1. Mount the MKR ENV Shield on the MKR WAN 1300 series
+	- The ENV shield itself collects the following environmental data: temperature, humidity, pressure, UV Index, UVB, UVA, and illuminance.  You will need to ensure the "Arduino_MKRENV" library is downloaded from the library manager via the Arduino IDE.  This is the library that is used to collect the data where you can use the 'read' methods in order to read the data[^1].   
+		```C++
+		#include <Arduino_MKRENV.h>
+		
+		void setup() {
+		    Serial.begin(9600);
+		    while (!Serial);
+		    
+		    if (!ENV.begin()) {
+		        Serial.println("Failed to initialize MKR ENV shield!");
+		    while (1);
+		    }
+
+		}
+
+		void loop() {
+		
+		    // read all the sensor values
+		    float temperature = ENV.readTemperature();
+		    float humidity    = ENV.readHumidity();
+		    float pressure    = ENV.readPressure();
+		    float illuminance = ENV.readIlluminance();
+		    float uva         = ENV.readUVA();
+		    float uvb         = ENV.readUVB();
+		    float uvIndex     = ENV.readUVIndex();
+		    /* ------ etc. ------*/
+		``` 
 
 
 
+
+
+
+[^1]: https://docs.arduino.cc/tutorials/mkr-env-shield/mkr-env-shield-basic. 
