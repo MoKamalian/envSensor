@@ -19,8 +19,7 @@ The purpose of this project was to establish sensor nodes that would collect env
 	2. Arduino MKR ENV Shield      -> https://www.arduino.cc/en/Guide/MKRENVShield
 
 Setup:
-
-	1. gzdfgf
+1. gzdfgf
 
 
 
