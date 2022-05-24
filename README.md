@@ -12,7 +12,14 @@ The purpose of this project was to establish sensor nodes that would collect env
 	- Dragino Lora shield v95 (915MHz for North America) 
 3. Raspberry Pi with Raspberry Pi OS installed
 
-### Connection layout 
+## Setup: 
+### Collecting Environmental Data ~ 
+- Required Kit: 
+	1. Arduino MKR WAN 1300 series -> https://store-usa.arduino.cc/products/arduino-mkr-wan-1300-lora-connectivity
+	2. Arduino MKR ENV Shield      -> https://www.arduino.cc/en/Guide/MKRENVShield
+
+Setup:
+	1. 
 
 
 
