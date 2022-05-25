@@ -1,31 +1,3 @@
-
-Skip to content
-Pulls
-Issues
-Marketplace
-Explore
-@MoKamalian
-MoKamalian /
-envSensor
-Public
-
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-
-More
-envSensor/README.md
-@MoKamalian
-MoKamalian Update README.md
-Latest commit 972c245 6 minutes ago
-History
-1 contributor
-58 lines (43 sloc) 2.43 KB
 # Environmental Sensors
 
 ## Purpose: 
@@ -76,8 +48,4 @@ Setup for environmental collection:
 		```  
 2. Ensure the Dipole Antenna is attached to the Ardunino MKR WAN 1300 series.  Once the antenna is connected you can compile and upload ./basicSend/basicSens.ino via the Arduino IDE.  Once uploading is complete open the serial monitor, environmental data sould be printing on the monior and being sent via the antenna.  
 3. ![arduino+antenna](./image_assets/arduino_antenna.png)
-[^1]: https://docs.arduino.cc/tutorials/mkr-env-shield/mkr-env-shield-basic. 
-
-   
-
-
+[^1]: https://docs.arduino.cc/tutorials/mkr-env-shield/mkr-env-shield-basic.
