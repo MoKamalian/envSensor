@@ -17,6 +17,7 @@ The purpose of this project was to establish sensor nodes that would collect env
 - Required Kit: 
 	1. Arduino MKR WAN 1300 series -> https://store-usa.arduino.cc/products/arduino-mkr-wan-1300-lora-connectivity
 	2. Arduino MKR ENV Shield      -> https://www.arduino.cc/en/Guide/MKRENVShield
+	3. Dipole Antenna for Arduino  -> https://store.arduino.cc/products/dipole-pentaband-waterproof-antenna
 
 Setup for environmental collection:
 1. Mount the MKR ENV Shield on the MKR WAN 1300 series
@@ -46,8 +47,9 @@ Setup for environmental collection:
 		    float uvb         = ENV.readUVB();
 		    float uvIndex     = ENV.readUVIndex();
 		    /* ------ etc. ------*/
-		``` 
-
+		```  
+2. Ensure the Dipole Antenna is attached to the Ardunino MKR WAN 1300 series.  Once the antenna is connected you can compile and upload ./basicSend/basicSens.ino via the Arduino IDE.  Once uploading is complete open the serial monitor, environmental data sould be printing on the monior and being sent via the antenna.  
+3. ![arduino+antenna](./image_assets/arduino_antenna.png)
 
 
 
