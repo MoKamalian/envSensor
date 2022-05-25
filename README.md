@@ -1,6 +1,8 @@
 # Environmental Sensors
 
-##Purpose: 
+
+
+## Purpose: 
 
 The purpose of this project was to establish sensor nodes that would collect environmental data such as tempurature, pressure, humidity etc.  The data is then send to a cloud service via a Raspberry Pi.  The environmental data is then displayed onto a dashboard for viewing.
 
