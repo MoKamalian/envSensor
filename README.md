@@ -66,6 +66,7 @@ The purpose of this project was to establish sensor nodes that would collect env
 	3. 1 X Arduino MKR ENV Shield      -> https://www.arduino.cc/en/Guide/MKRENVShield
 
 **Setup for simple one to one connection:**  
+
 ***On The Sender Node***
 1. This setup involves connecting two Arduino MKR ENV 1300 series via LoRa, one being the sender node and one being the reciever node.  The setup essentially involves the sender node transmitting data and the reciever listening and readnig the tranmitted data; both using radio frequency number 915E6 (for North America)[^3].
 
@@ -140,10 +141,78 @@ The purpose of this project was to establish sensor nodes that would collect env
 
 1. In order to read data from the serial port you will need to send the recieved environmental data from the Arduino+Dragino LoRa shield.  Having compiled and uploaded *./node0Connector/node0Connector.ino* would allow you to read the data being sent from sensor nodes and forward it to the pi via the serial communication.  The program parses the incoming data and sends it on one line via ```Serial.println()```.  
 
-2.  Once you have compiled and uploaded the *./node0Connector/node0Connector.ino* onto the Arduino Uno+Dragino LoRa shield and have verfied data is being recieved, close the serial monitor and run the *./raspberryPiReciever/readOnPi.py* script on the Raspberry Pi itself.  This script will listen in on the port specified and read the incoming data from the Arduino Uno, parse it and send it to the Cayenne Cloud services dashboard[^5][^6].  
-	-  
+2.  Once you have compiled and uploaded the *./node0Connector/node0Connector.ino* onto the Arduino Uno+Dragino LoRa shield and have verfied data is being recieved, close the serial monitor and run the *./raspberryPiReciever/readOnPi.py* script on the Raspberry Pi itself.  This script will listen in on the port specified and read the incoming data from the Arduino Uno, parse it and send it to the Cayenne Cloud services dashboard[^5][^6].   
 
 ![basicSetup](./image_assets/basicDiagram.png)
+
+3. You will need to have installed Cayenne's mqtt Python library as well as look into the Cayenne documentation on how to edit the widgets[^7][^8].
+	- You have to ensure that when you are sending the and calling ```.virtualWrite()``` method from the Cayenne mqtt Python module that you enter in the correct channel.  The channel you enter shouldnt be in use and if you enter in a channel that has no widget, one should automatically be created for you when the data is sent to the dashboard. 
+	- You can edit the *readOnPi.py* file to send to different channels, parse different data etc.
+
+	```Python
+	import serial as sr
+	import cayenne.client as cncl
+	import time
+	from psr.parser import ENVParser
+
+	# port and authentication info for cayenne
+	MQTT_USR = "MQTTusername"
+	MQTT_PASS = "MQTTpassword"
+	MQTT_CLID = "MQTTclientID"
+	port_name = "/dev/ttyACM0"
+
+	# initialize client object to establish connection to cayenne.  Port 8883 is meant
+	# for secure connections if needed in the begin method.
+	client = cncl.CayenneMQTTClient()
+	client.begin(MQTT_USR, MQTT_PASS, MQTT_CLID)
+
+	# data format acceptable to parser.
+	# test = "sensorName:sensor1,temperature:21.43,pressure:22.52,illuminance:54,humidity:33.5,uva:11,uvb:12,uvIndex:17"
+
+	# initialize parser object
+	parser1 = ENVParser()
+
+
+	port = sr.Serial(port_name, 9600)
+	print(port.name)
+
+	i = 0
+	time_stamp = 0
+
+	while True:
+	    # reading from serial port on the Raspberry Pi
+	    read_input = port.readline()
+	    temp = str(int(port.readline(), 16))
+	    print(temp)
+	    print(read_input)
+
+	    # parsing the received data through the serial port
+	    parser1.data(temp)
+	    parser1.parse()
+
+	    # data values
+	    # The getList() method will accept a list of keys to parse and then return the values in order 
+	    # of the keys requested. 
+	    VALUES = parser1.getList(["sensorName", "temperature", "pressure", "humidity", "uvIndex"])
+	    SENSOR   = VALUES[0]
+	    TEMP     = VALUES[1]
+	    PRESSURE = VALUES[2]
+	    HUMIDITY = VALUES[3]
+	    UVINDEX  = VALUES[4]
+
+	    # sending data out to cayenne dashboard
+	    client.loop()
+
+	    if time.time() > (time_stamp + 10):
+		client.celsiusWrite(1, TEMP)
+		client.virutalWrite(2, PRESSURE)
+		#... etc... user virtualWrite() method to send data to a general widget
+	```  
+
+### Multiple Sender Nodes~  
+
+In order to have multiple sender nodes you will need to offset the ```delayTime``` as mentioned before.  Refer to the footnotes for more instruction. 
+
 
 ## Authors:  
 - @github/sarahannealice
@@ -155,4 +224,6 @@ The purpose of this project was to establish sensor nodes that would collect env
 [^4]: https://forum.arduino.cc/t/lora-multiple-transmitter-to-single-receiver/663645/9
 [^5]: https://www.instructables.com/Raspberry-Pi-Arduino-Serial-Communication/
 [^6]: https://www.oreilly.com/library/view/arduino-cookbook/9781449399368/ch04.html
+[^7]: https://github.com/myDevicesIoT/Cayenne-MQTT-Python/tree/b2cad3e23095c49c560d38d4fa30736fc3687e8e
+[^8]: https://github.com/myDevicesIoT/cayenne-docs/blob/master/docs/FEATURES.md
 
