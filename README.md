@@ -139,9 +139,11 @@ The purpose of this project was to establish sensor nodes that would collect env
 ***Sending and Reading Data from Serial Port on Raspberry Pi***  
 
 1. In order to read data from the serial port you will need to send the recieved environmental data from the Arduino+Dragino LoRa shield.  Having compiled and uploaded *./node0Connector/node0Connector.ino* would allow you to read the data being sent from sensor nodes and forward it to the pi via the serial communication.  The program parses the incoming data and sends it on one line via ```Serial.println()```.  
-2. 
 
+2.  Once you have compiled and uploaded the *./node0Connector/node0Connector.ino* onto the Arduino Uno+Dragino LoRa shield and have verfied data is being recieved, close the serial monitor and run the *./raspberryPiReciever/readOnPi.py* script on the Raspberry Pi itself.  This script will listen in on the port specified and read the incoming data from the Arduino Uno, parse it and send it to the Cayenne Cloud services dashboard[^5][^6].  
+	-  
 
+![basicSetup](./image_assets/basicDiagram.png)
 
 ## Authors:  
 - @github/sarahannealice
@@ -151,3 +153,5 @@ The purpose of this project was to establish sensor nodes that would collect env
 [^2]: https://forum.arduino.cc/t/port-grayed-out-under-tools-port/408689
 [^3]: https://docs.arduino.cc/tutorials/mkr-wan-1300/lora-send-and-receive
 [^4]: https://forum.arduino.cc/t/lora-multiple-transmitter-to-single-receiver/663645/9
+[^5]: https://www.instructables.com/Raspberry-Pi-Arduino-Serial-Communication/
+[^6]: https://www.oreilly.com/library/view/arduino-cookbook/9781449399368/ch04.html
