@@ -219,7 +219,7 @@ In order to have multiple sender nodes you will need to offset the ```delayTime`
 
 
 ## Authors:  
-- @sarahannealice
+- @github/sarahannealice
 
 
 [^1]: https://docs.arduino.cc/tutorials/mkr-env-shield/mkr-env-shield-basic.
