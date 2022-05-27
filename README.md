@@ -211,7 +211,11 @@ The purpose of this project was to establish sensor nodes that would collect env
 
 ### Multiple Sender Nodes~  
 
-In order to have multiple sender nodes you will need to offset the ```delayTime``` as mentioned before.  Refer to the footnotes for more instruction. 
+In order to have multiple sender nodes you will need to offset the ```delayTime``` as mentioned before.  Refer to the footnotes for more instruction.  
+- You can have one sensor node sending in data at 40 second intervals and another node sending data at 30 second intervals.  The more nodes you add the more you will have to adjust the delay times between the sender nodes.  
+- If there is no delay and all sender nodes are transmitting at the same time, the receiver will have no way of distinguish between the nodes and will recieve corrupted data.  
+
+![block-diagram](./image_assets/block.png)
 
 
 ## Authors:  
