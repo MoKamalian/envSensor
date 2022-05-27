@@ -218,6 +218,14 @@ In order to have multiple sender nodes you will need to offset the ```delayTime`
 ![block-diagram](./image_assets/block.png)
 
 
+
+### Further Improvements ~  
+- There are further stretch goals that could be implemented for this project, for example:
+	- Looking into difference cloud services and dashboards.  
+	- Creating our own dashboard using some web framework
+	- Extending the reading distance by modifying some nodes to forward the data to the master node
+
+
 ## Authors:  
 - @github/sarahannealice
 
